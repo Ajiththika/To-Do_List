@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced Task Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="app">
+
+    <div class="header">
+      <h1>To-Do List</h1>
+      <p class="subtitle">Stay organized and productive</p>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div id="total">0</div>
+          <span>Total</span>
+        </div>
+        <div class="stat-card">
+          <div id="active">0</div>
+          <span>Active</span>
+        </div>
+        <div class="stat-card">
+          <div id="done">0</div>
+          <span>Done</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="add-task">
+        <input id="taskInput" placeholder="Add new task">
+        <select id="priority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button id="addBtn">Add</button>
+      </div>
+
+      <div class="filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="active">Active</button>
+        <button class="filter" data-filter="completed">Done</button>
+      </div>
+
+      <ul id="taskList"></ul>
+
+      <div id="empty" class="empty">No tasks found</div>
+    </div>
+
+  </div>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-box">
+    <p>Delete this task?</p>
+    <div class="modal-actions">
+      <button id="confirmDelete" class="danger">Delete</button>
+      <button id="cancelDelete">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
