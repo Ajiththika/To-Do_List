@@ -1,71 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Advanced Task Manager</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMaster Pro</title>
+    
+    <!-- Google Fonts: Outfit for headings, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-  <div class="app">
-
-    <div class="header">
-      <h1>To-Do List</h1>
-      <p class="subtitle">Stay organized and productive</p>
-
-      <div class="stats">
-        <div class="stat-card">
-          <div id="total">0</div>
-          <span>Total</span>
-        </div>
-        <div class="stat-card">
-          <div id="active">0</div>
-          <span>Active</span>
-        </div>
-        <div class="stat-card">
-          <div id="done">0</div>
-          <span>Done</span>
-        </div>
-      </div>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
     </div>
 
-    <div class="content">
+    <main class="app-container">
+        
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <h1>TaskMaster</h1>
+            </div>
+            <p class="tagline">Focus on what matters.</p>
+        </header>
 
-      <div class="add-task">
-        <input id="taskInput" placeholder="Add new task">
-        <select id="priority">
-          <option value="low">Low</option>
-          <option value="medium" selected>Medium</option>
-          <option value="high">High</option>
-        </select>
-        <button id="addBtn">Add</button>
-      </div>
+        <section class="stats-dashboard">
+            <div class="stat-item">
+                <div class="stat-icon total"><i class="fa-solid fa-list-check"></i></div>
+                <div class="stat-info">
+                    <span id="total">0</span>
+                    <label>Total Tasks</label>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon active"><i class="fa-regular fa-clock"></i></div>
+                <div class="stat-info">
+                    <span id="active">0</span>
+                    <label>In Progress</label>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon done"><i class="fa-solid fa-check-double"></i></div>
+                <div class="stat-info">
+                    <span id="done">0</span>
+                    <label>Completed</label>
+                </div>
+            </div>
+        </section>
 
-      <div class="filters">
-        <button class="filter active" data-filter="all">All</button>
-        <button class="filter" data-filter="active">Active</button>
-        <button class="filter" data-filter="completed">Done</button>
-      </div>
+        <section class="input-section">
+            <div class="input-wrapper">
+                <i class="fa-solid fa-plus input-icon"></i>
+                <input type="text" id="taskInput" placeholder="What needs to be done?" autocomplete="off">
+                <div class="input-actions">
+                    <select id="priority" class="priority-select">
+                        <option value="low">Low Priority</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High Priority</option>
+                    </select>
+                    <button id="addBtn" class="add-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </section>
 
-      <ul id="taskList"></ul>
+        <div class="controls">
+            <div class="search-wrapper">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search tasks...">
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="active">Active</button>
+                <button class="filter-btn" data-filter="completed">Done</button>
+            </div>
+        </div>
 
-      <div id="empty" class="empty">No tasks found</div>
+        <div class="task-list-container">
+            <ul id="taskList" class="task-list">
+                <!-- Tasks will be injected here -->
+            </ul>
+            <div id="emptyState" class="empty-state">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <p>All cleaned up! No tasks found.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Generic Modal -->
+    <div id="modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Confirm Action</h3>
+                <button class="close-modal" id="closeModal"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Are you sure?</p>
+                <div id="modalInputContainer" class="hidden">
+                    <label for="editTaskInput">Task Name</label>
+                    <input type="text" id="editTaskInput" class="modal-input">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modalCancel" class="btn btn-secondary">Cancel</button>
+                <button id="modalConfirm" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
     </div>
 
-  </div>
-</div>
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
 
-<div id="modal" class="modal">
-  <div class="modal-box">
-    <p>Delete this task?</p>
-    <div class="modal-actions">
-      <button id="confirmDelete" class="danger">Delete</button>
-      <button id="cancelDelete">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
